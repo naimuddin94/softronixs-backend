@@ -14,7 +14,7 @@ const getAllCategories = async (req, res) => {
 
 // create a new category
 const createCategory = async (req, res) => {
-  console.log(req.body);
+  console.log("log from 17", req.body);
   try {
     await Category.create(req.body);
     res.status(201).json({ message: "Category saved successfully" });

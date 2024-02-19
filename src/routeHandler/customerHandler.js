@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const customerSchema = require("../models/customerSchema");
 const Customer = new mongoose.model("Customer", customerSchema);
 
-// get all leaders
+// get all customers
 const getAllCustomers = async (req, res) => {
   try {
     const result = await Customer.find();
@@ -12,7 +12,26 @@ const getAllCustomers = async (req, res) => {
   }
 };
 
-// create a new leader
+// get single customer by id
+const getCustomer = async (req, res) => {
+  try {
+    const customerId = req.params.customerId;
+
+    if (!customerId) {
+      return res.status(400).json({ message: "Customer ID is required" });
+    }
+    const customer = await Customer.findById(customerId);
+
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+    res.json(customer);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// create a new Customer
 const createCustomer = async (req, res) => {
   try {
     await Customer.create(req.body);
@@ -22,4 +41,56 @@ const createCustomer = async (req, res) => {
   }
 };
 
-module.exports = { getAllCustomers, createCustomer };
+// update a single Customer by id
+const updateCustomer = async (req, res) => {
+  try {
+    const customerId = req.params.customerId;
+
+    if (!customerId) {
+      return res.status(400).json({ message: "Customer ID is required" });
+    }
+
+    const updatedCustomer = await Customer.findByIdAndUpdate(
+      customerId,
+      req.body,
+      {
+        new: true,
+      }
+    );
+
+    if (!updatedCustomer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    res.json({ message: "Customer updated successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// delete the Customer by id
+const deleteCustomer = async (req, res) => {
+  try {
+    const customerId = req.params.id;
+    if (!customerId) {
+      return res.status(400).json({ message: "Customer ID is required" });
+    }
+
+    const deletedCustomer = await Customer.findByIdAndDelete(customerId);
+    if (!deletedCustomer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    res.json({ message: "Customer deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  getAllCustomers,
+  getCustomer,
+  createCustomer,
+  updateCustomer,
+  deleteCustomer,
+};
