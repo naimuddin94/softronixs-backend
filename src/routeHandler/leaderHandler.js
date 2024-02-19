@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const leaderSchema = require("../models/leaderSchema");
 const Leader = new mongoose.model("Leader", leaderSchema);
 
-// get all users
+// get all leaders
 const getAllLeaders = async (req, res) => {
   try {
     const result = await Leader.find();
@@ -12,7 +12,7 @@ const getAllLeaders = async (req, res) => {
   }
 };
 
-// create a new user
+// create a new leader
 const createLeader = async (req, res) => {
   try {
     await Leader.create(req.body);
