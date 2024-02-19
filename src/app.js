@@ -4,18 +4,27 @@ const globalErrorHandler = require("./lib/globalErrorHandler");
 const userRoute = require("./routes/usersRoute");
 const leaderRoute = require("./routes/leaderRoute");
 const categoryRoute = require("./routes/categoryRoute");
+const countryRoute = require("./routes/countryRoute");
+const customerRoute = require("./routes/customerRoute");
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 
 app.get("/", (req, res) => {
   res.send("softronixs is running....");
 });
 
-app.use("/api/users", userRoute)
-app.use("/api/leaders", leaderRoute)
+app.use("/api/users", userRoute);
+app.use("/api/leaders", leaderRoute);
+app.use("/api/customers", customerRoute);
 app.use("/api/category", categoryRoute);
+app.use("/api/country", countryRoute);
 
 // handling all route which is not found
 app.all("*", (req, res, next) => {

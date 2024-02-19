@@ -26,6 +26,10 @@ const categorySchema = mongoose.Schema({
     required: true,
   },
   countryPriceList: [countryPriceSchema],
+  created_at: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = categorySchema;

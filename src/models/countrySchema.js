@@ -11,6 +11,10 @@ const countrySchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  created_at: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 module.exports = countrySchema;

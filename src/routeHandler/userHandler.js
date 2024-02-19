@@ -27,4 +27,4 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = {getAllUsers, createUser}
+module.exports = {getAllUsers, createUser, User}
