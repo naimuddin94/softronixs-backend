@@ -3,6 +3,7 @@ const cors = require("cors");
 const globalErrorHandler = require("./lib/globalErrorHandler");
 const userRoute = require("./routes/usersRoute");
 const leaderRoute = require("./routes/leaderRoute");
+const categoryRoute = require("./routes/categoryRoute");
 const app = express();
 
 app.use(express.json());
@@ -14,6 +15,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoute)
 app.use("/api/leaders", leaderRoute)
+app.use("/api/category", categoryRoute);
 
 // handling all route which is not found
 app.all("*", (req, res, next) => {
