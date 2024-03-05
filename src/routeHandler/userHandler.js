@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const userSchema = require('../models/userSchema');
-const User = new mongoose.model('User', userSchema);
+const mongoose = require("mongoose");
+const userSchema = require("../models/userSchema");
+const User = new mongoose.model("User", userSchema);
 
 // get all users
 const getAllUsers = async (req, res) => {
@@ -9,6 +9,18 @@ const getAllUsers = async (req, res) => {
     res.send(result);
   } catch (error) {
     res.send(error.message);
+  }
+};
+
+// get user role
+const getUserRole = async (req, res) => {
+  try {
+    const email = req.params.email;
+    const user = await User.findOne({ email });
+    const role = user.role;
+    res.send({ role });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -27,4 +39,4 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = {getAllUsers, createUser, User}
+module.exports = { getAllUsers, createUser, getUserRole, User };

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const leaderSchema = require("../models/leaderSchema");
 const Leader = new mongoose.model("Leader", leaderSchema);
+const admin = require("../firebase/firebase");
 
 // get all leaders
 const getAllLeaders = async (req, res) => {
@@ -33,7 +34,18 @@ const getLeader = async (req, res) => {
 
 // create a new leader
 const createLeader = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const displayName = req.body.firstName + " " + req.body.lastName;
+  const photoURL = req.body.photo;
+
   try {
+    await admin.auth().createUser({
+      email,
+      password,
+      displayName,
+      photoURL,
+    });
     await Leader.create(req.body);
     res.status(201).json({ message: "Leader saved successfully" });
   } catch (error) {

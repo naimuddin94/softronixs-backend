@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const customerSchema = require("../models/customerSchema");
 const Customer = new mongoose.model("Customer", customerSchema);
+const admin = require("../firebase/firebase");
 
 // get all customers
 const getAllCustomers = async (req, res) => {
@@ -33,7 +34,18 @@ const getCustomer = async (req, res) => {
 
 // create a new Customer
 const createCustomer = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const displayName = req.body.firstName + " " + req.body.lastName;
+  const photoURL = req.body.photo;
+
   try {
+    await admin.auth().createUser({
+      email,
+      password,
+      displayName,
+      photoURL,
+    });
     await Customer.create(req.body);
     res.status(201).json({ message: "Customer saved successfully" });
   } catch (error) {
