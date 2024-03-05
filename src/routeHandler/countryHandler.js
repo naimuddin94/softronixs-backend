@@ -43,7 +43,6 @@ const createCountry = async (req, res) => {
 
 // update a single country by id
 const updateCountry = async (req, res) => {
-  console.log(req.body);
   try {
     const countryId = req.params.countryId;
 
