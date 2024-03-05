@@ -18,7 +18,8 @@ const getUserRole = async (req, res) => {
     const email = req.params.email;
     const user = await User.findOne({ email });
     const role = user.role;
-    res.send({ role });
+    const name = user.name;
+    res.send({ role, name });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
