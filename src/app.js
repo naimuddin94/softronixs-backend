@@ -6,6 +6,7 @@ const leaderRoute = require("./routes/leaderRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const countryRoute = require("./routes/countryRoute");
 const customerRoute = require("./routes/customerRoute");
+const adminRoute = require("./routes/adminRoute");
 const app = express();
 
 app.use(express.json());
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoute);
+app.use("/api/admin", adminRoute);
 app.use("/api/leaders", leaderRoute);
 app.use("/api/customers", customerRoute);
 app.use("/api/category", categoryRoute);

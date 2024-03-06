@@ -13,6 +13,7 @@ const leaderSchema = mongoose.Schema({
   phoneNumber: {
     type: String,
     required: true,
+    unique: true,
   },
   whatsapp: {
     type: String,
@@ -46,10 +47,12 @@ const leaderSchema = mongoose.Schema({
   nidNumber: {
     type: String,
     required: true,
+    unique: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
