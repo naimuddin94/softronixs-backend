@@ -55,6 +55,7 @@ const leaderSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  bio: String,
   created_at: {
     type: Date,
     default: Date.now(),
