@@ -1,18 +1,22 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const customerSchema = require("../models/customerSchema");
+const Customer = new mongoose.model("Leader", customerSchema);
+
 const {
-  getAllCustomers,
-  getCustomer,
-  createCustomer,
-  updateCustomer,
-  deleteCustomer,
-} = require("../routeHandler/customerHandler");
+  getUserFn,
+  getAllUsersFn,
+  createUserFn,
+  updateUserFn,
+  deleteUserFn,
+} = require("../lib/handlerFunctions");
 
 const router = express.Router();
 
-router.get("/", getAllCustomers);
-router.get("/:customerId", getCustomer);
-router.post("/create", createCustomer);
-router.put("/update/:customerId", updateCustomer);
-router.delete("/:id", deleteCustomer);
+router.get("/", getAllUsersFn(Customer));
+router.get("/:email", getUserFn(Customer));
+router.post("/create", createUserFn(Customer));
+router.put("/update/:id", updateUserFn(Customer));
+router.delete("/:id", deleteUserFn(Customer));
 
 module.exports = router;

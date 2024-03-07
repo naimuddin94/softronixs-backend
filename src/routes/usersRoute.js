@@ -1,14 +1,20 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const userSchema = require("../models/userSchema");
+const User = new mongoose.model("User", userSchema);
 const {
-  getAllUsers,
-  createUser,
-  getUserRole,
-} = require("../routeHandler/userHandler");
+  getUserFn,
+  getAllUsersFn,
+  createUserFn,
+  updateUserFn,
+  getUserRoleFn,
+} = require("../lib/handlerFunctions");
 
 const router = express.Router();
 
-router.get("/", getAllUsers);
-router.get("/role/:email", getUserRole);
-router.post("/create", createUser);
+router.get("/", getAllUsersFn(User));
+router.get("/role/:email", getUserRoleFn(User));
+router.post("/create", createUserFn(User));
+router.put("/update/:id", updateUserFn(User));
 
 module.exports = router;

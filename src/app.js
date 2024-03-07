@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", userRoute);
-app.use("/api/admin", adminRoute);
+app.use("/api/admins", adminRoute);
 app.use("/api/leaders", leaderRoute);
 app.use("/api/customers", customerRoute);
 app.use("/api/category", categoryRoute);
