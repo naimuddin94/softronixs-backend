@@ -13,8 +13,9 @@ const {
 const router = express.Router();
 
 router.get("/", getAllUsersFn(User));
+router.get("/:email", getUserFn(User));
 router.get("/role/:email", getUserRoleFn(User));
 router.post("/create", createUserFn(User));
-router.put("/update/:id", updateUserFn(User));
+// router.put("/update/:id", updateUserFn(User));
 
 module.exports = router;

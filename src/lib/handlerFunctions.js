@@ -1,4 +1,7 @@
 const firebaseAdmin = require("../firebase/firebase");
+const mongoose = require("mongoose");
+const userSchema = require("../models/userSchema");
+const User = new mongoose.model("User", userSchema);
 
 // get single user by email address
 const getUserFn = (dbCollectionName) => async (req, res) => {
@@ -58,6 +61,14 @@ const updateUserFn = (dbCollectionName) => async (req, res) => {
     if (!id) {
       return res.status(400).json({ message: "ID is required" });
     }
+
+    // update from user's model
+    const user = await dbCollectionName.findById(id);
+    const email = user.email;
+
+    const targetUser = await User.findOne({ email });
+    targetUser.name = `${req.body.firstName} ${req.body.lastName}`;
+    targetUser.save();
 
     const result = await dbCollectionName.findByIdAndUpdate(id, req.body, {
       new: true,
